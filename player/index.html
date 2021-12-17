@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Oceanic White Shark Detection</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:;">
+    <!-- TODO: use npm package instead of unpkg to bundle it all -->
+    <script type="module" src="https://unpkg.com/media-chrome@0.2.2"></script>    
+    <script src="player.js" ></script>
+    <style>
+
+        body {
+            margin-top: 60px;
+            margin-left: 60px;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+        
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+
+        .canvas {
+            z-index: 0;
+            top: 0%;
+            left: 0%;
+            position: absolute;
+            pointer-events: none;
+        }
+        .slider {
+            width: 960px;
+        }
+
+        .bubbles {
+            position: absolute;
+            background-color:#FEF000;
+            pointer-events: none;
+            height: 100%;
+            top:0;
+        }
+
+        .seekbar {
+            height: 24px;
+            background-color: #505050;
+            width: 960px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .time {
+            background-color: #D83B01;
+            position: absolute;
+            width: 8px;
+            height: 100%;
+            left: 0%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        media-container {
+            width: 960px;
+            height: 540px;
+        }
+
+        label {
+            font-size: 18px;
+        }
+        
+        #top .control {
+            margin-right: 32px;
+            height: 30px;
+        }
+
+        .seekbar {
+            margin-top: 0px;
+        }
+
+        #top label {
+            align-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Oceanic Whitetip Shark Detection</h1>
+    <div class="row">
+        <label  for="url" >Enter the video file location or URL:</label>        
+    </div>
+    <div id="top" class="row">
+        <input class="control" type="url" id="url" list="urls" size="80" autocomplete="off" placeholder="Enter the video file location or URL" >
+            <datalist id="urls">
+                <option value="GH010086_20P0316_OCS_.MP4">GH010086_20P0316_OCS_.MP4</option>
+                <option value="GOPR0002_17P0260.MP4">GOPR0002_17P0260.MP4</option>
+                <option value="OCS_%231475.mov">OCS_#1475.mov</option>
+                <option value="OCS_20P1513.mov">OCS_20P1513.mov</option>
+                <option value="LL699+(v7)_19P0809.MP4">LL699+(v7)_19P0809.MP4</option>
+                <option value="LL6978 V (1)_17P1477.MOV">LL6978 V (1)_17P1477.MOV</option>
+                <option value="LL6978 V (2)_17P1441.MOV">LL6978 V (2)_17P1441.MOV</option>
+            </datalist>
+        </input>
+        <button class="control" id="browse">Browse</button>
+        <button class="control" id="load">Watch</button>
+    </div>
+    <media-container autohide="2">
+        <canvas class="canvas" id="canvas"></canvas>
+        <video slot="media" crossorigin autoplay muted width="960" height="540" id="video" playsinline >
+        </video>
+        <media-control-bar>
+            <media-play-button></media-play-button>
+            <media-playback-rate-button></media-playback-rate-button>
+            <media-seek-backward-button></media-seek-backward-button>
+            <media-seek-forward-button></media-seek-forward-button>
+            <media-time-display show-duration></media-time-display>            
+            <media-time-range></media-time-range>
+            <media-mute-button></media-mute-button>
+            <media-volume-range></media-volume-range>
+            <media-fullscreen-button></media-fullscreen-button>
+        </media-control-bar>
+    </media-container>
+    <div id="seekbar" class="seekbar" width="960">
+        <div id="time" class="time"></div>
+    </div>
+    <div class="row">
+        <label class="control" for="score">Minimum score: </label>
+        <label class="control" id="confidence">0.30</label>
+        <input class="control" id="score" type="range" min="0" max="1" step="0.01" value="0.30" onchange="updateThreshold(this.value)"></input>
+    </div>
+    <footer>
+        <br />
+        <p>© Microsoft Corporation 2021</p>
+    </footer>
+</body>
+</html>

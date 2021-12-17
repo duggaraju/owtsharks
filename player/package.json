@@ -1,0 +1,14 @@
+{
+  "name": "player",
+  "version": "1.0.0",
+  "description": "video player with metadata rendering",
+  "main": "player.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "media-chrome": "^0.4.0"
+  }
+}
